@@ -1,12 +1,23 @@
 package model;
 
+import java.util.Date;
+
 public class Person {
     private String nationalId;
     private String firstName;
     private String lastName;
-    private String bDay;
+    private Date bDay;
+    private int id;
 
-    public Person() {
+    public Person(String nationalId, String firstName, String lastName, Date bDay) {
+        this.nationalId = nationalId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.bDay = bDay;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getNationalId() {
@@ -32,11 +43,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getbDay() {
+    public Date getbDay() {
         return bDay;
     }
 
-    public void setbDay(String bDay) {
+    public void setbDay(Date bDay) {
         this.bDay = bDay;
     }
 }

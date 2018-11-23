@@ -1,16 +1,25 @@
+import model.Account;
 import model.Person;
 
+import javax.sound.midi.SysexMessage;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 
 class Menu {
     private Scanner scan = new Scanner(System.in);
-    private int islem = -1;
+    private ArrayList<Person> personList = new ArrayList<Person>();
 
     Menu() {
 
-        while (islem != 7) {
+        int task = -1;
+
+        while (task != 7) {
             System.out.println("***MENU***");
+            System.out.println("0: Kişi Oluştur");
             System.out.println("1: Hesap Aç");
             System.out.println("2: Hesap Bakiyesi");
             System.out.println("3: Para Yatır");
@@ -18,13 +27,18 @@ class Menu {
             System.out.println("5: Havale");
             System.out.println("6: Döviz İşlemleri");
             System.out.println("7: Çıkış");
-            islem = scan.nextInt();
+            task = scan.nextInt();
 
             double bakiye = 0;
-            switch (islem) {
-                case 1:
-                    System.out.println("***Hesap Tanımlama***!");
+            switch (task) {
+                case 0:
+                    System.out.println("0: Kişi Oluştur");
                     createPerson();
+                    break;
+
+                case 1:
+                    System.out.println("***Hesap Tanımlama***");
+                    createAccount();
                     break;
 
                 case 2:
@@ -65,46 +79,65 @@ class Menu {
         }
     }
 
-    private void createPerson() {
+    public Date parseDateFromString(String myStringDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date= null;
+        try {
+            date = sdf.parse(myStringDate);
+        } catch (ParseException e) {
+            System.out.println("Lütfen dd/MM/yyyy formatta yeniden giriniz.");
+          //  e.printStackTrace();
+        }
+        return date ;
+    }
 
+    private void createAccount() {
+
+        System.out.println("Hesap Türü Giriniz: ");
+        scan.nextLine();
+        String type = scan.nextLine();
+
+        System.out.println("Hesap Adı Giriniz: ");
+        String name = scan.nextLine();
+
+        Account account = new Account(type,name);
+
+    }
+
+    private void createPerson() {
 
         System.out.println("TC Kimlik No Giriniz: ");
         scan.nextLine();
-        String nationalId =scan.nextLine();
+        String nationalId = scan.nextLine();
 
         System.out.println("İsim Giriniz: ");
-        String firstName=scan.nextLine();
+        String firstName = scan.nextLine();
 
         System.out.println("Soyisim Giriniz: ");
-        String lastName =scan.nextLine();
+        String lastName = scan.nextLine();
 
-        System.out.println("Doğum Tarihini Giriniz: ");
-        String bDay =scan.nextLine();
+        String bDay;
+        Date bDayinDateFormat;
 
+        while (true){
+            System.out.println("Doğum Tarihini Giriniz(dd/MM/yyyy): ");
+            bDay = scan.nextLine();
+            bDayinDateFormat = parseDateFromString(bDay);
+
+            if (bDayinDateFormat != null )
+                break;
+        }
 
         System.out.println("TC Kimlik No: " + nationalId);
         System.out.println("Adı: " + firstName);
         System.out.println("Soyadı: " + lastName);
         System.out.println("Doğum Tarihi: " + bDay);
 
-        Person person = new Person();
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        person.setNationalId(nationalId);
-        person.setbDay(bDay);
+        Person person = new Person(nationalId, firstName, lastName, bDayinDateFormat);
+        System.out.println(person.getbDay());
 
+        personList.add(person);
 
+        System.out.println("Kayıtlı kişi sayısı: " + personList.size());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
