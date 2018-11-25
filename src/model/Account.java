@@ -1,15 +1,21 @@
 package model;
 
+import java.util.Date;
+
 public class Account {
     private String type;
     private String name;
     private int id;
 
+    private Date createDate;
+
     public Account(String type, String name) {
-        this.type = this.type;
-        this.name = this.name;
-        this.id = id;
+        this.type = type;
+        this.name = name;
+        setCreateDate(new Date());
     }
+
+
     public String getType() {
         return type;
     }
@@ -32,6 +38,14 @@ public class Account {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    private void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
 

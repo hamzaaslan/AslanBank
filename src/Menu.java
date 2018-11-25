@@ -1,7 +1,5 @@
 import model.Account;
 import model.Person;
-
-import javax.sound.midi.SysexMessage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import java.util.Scanner;
 
 class Menu {
     private Scanner scan = new Scanner(System.in);
-    private ArrayList<Person> personList = new ArrayList<Person>();
+    private ArrayList<Person> personList = new ArrayList<>();
 
     Menu() {
 
@@ -27,6 +25,7 @@ class Menu {
             System.out.println("5: Havale");
             System.out.println("6: Döviz İşlemleri");
             System.out.println("7: Çıkış");
+            System.out.println("8: Kisi getir");
             task = scan.nextInt();
 
             double bakiye = 0;
@@ -69,7 +68,12 @@ class Menu {
 
                 case 7:
                     System.out.println("Sistemden Çıkılıyor!");
-
+                    break;
+                case 8:
+                    System.out.println("Lütfen kisinin id sini giriniz!");
+                    int personId = scan.nextInt();
+                    Person myPerson = getPersonById(personId);
+                    System.out.println(myPerson.getFirstName());
                     break;
                 default:
                     System.out.println("Geçersiz İşlem!");
@@ -77,6 +81,17 @@ class Menu {
 
             }
         }
+    }
+
+    Person getPersonById(int id){
+        Person myPerson = null;
+        System.out.println(id);
+        for(Person person:personList) {
+            if (person.getId() == id){
+                myPerson = person;
+            }
+        }
+        return myPerson;
     }
 
     public Date parseDateFromString(String myStringDate) {
@@ -101,6 +116,7 @@ class Menu {
         String name = scan.nextLine();
 
         Account account = new Account(type,name);
+        System.out.println(account.getCreateDate());
 
     }
 
@@ -134,6 +150,7 @@ class Menu {
         System.out.println("Doğum Tarihi: " + bDay);
 
         Person person = new Person(nationalId, firstName, lastName, bDayinDateFormat);
+        person.setId(personList.size()+1);
         System.out.println(person.getbDay());
 
         personList.add(person);

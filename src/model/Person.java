@@ -16,8 +16,11 @@ public class Person {
         this.bDay = bDay;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
+    }
+    public int getId() {
+        return id;
     }
 
     public String getNationalId() {
@@ -31,6 +34,7 @@ public class Person {
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
