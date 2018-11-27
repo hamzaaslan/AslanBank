@@ -38,10 +38,10 @@ class Menu {
         account.setId(accountList.size()+1);
         accountList.add(account);
         Account account2 = new Account("12345", "Yusuf");
-        account.setId(accountList.size()+1);
+        account2.setId(accountList.size()+1);
         accountList.add(account2);
         Account account3 = new Account("12345678", "Zeynep");
-        account.setId(accountList.size()+1);
+        account3.setId(accountList.size()+1);
         accountList.add(account3);
 
 
@@ -61,6 +61,7 @@ class Menu {
             System.out.println("6: Döviz İşlemleri");
             System.out.println("7: Çıkış");
             System.out.println("8: Kisi getir");
+            System.out.println("9: Hesap getir");
             task = scan.nextInt();
 
             double bakiye = 0;
@@ -110,6 +111,13 @@ class Menu {
                     Person myPerson = getPersonById(personId);
                     System.out.println(myPerson.getFirstName()+" "+myPerson.getLastName()+" "+myPerson.getNationalId()+" "+myPerson.getbDay());
                     break;
+                case 9:
+                    System.out.println("Hesap Getir");
+                    int accountId = scan.nextInt();
+                    Account myAccount = getAccountById(accountId);
+                    System.out.println(myAccount.getType()+" "+myAccount.getName());
+                    break;
+
                 default:
                     System.out.println("Geçersiz İşlem!");
                     break;
@@ -128,6 +136,16 @@ class Menu {
             }
         }
         return myPerson;
+    }
+    private Account getAccountById(int id) {
+            Account myAccount = null;
+            System.out.println(id);
+            for(Account account:accountList){
+                if (account.getId() == id) {
+                    myAccount = account;
+                }
+            }
+            return myAccount;
     }
 
     public Date parseDateFromString(String myStringDate) {
