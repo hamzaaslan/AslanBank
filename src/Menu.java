@@ -10,23 +10,43 @@ import java.util.Scanner;
 class Menu {
     private Scanner scan = new Scanner(System.in);
     private ArrayList<Person> personList = new ArrayList<>();
-
-
+    private ArrayList<Account> accountList = new ArrayList<>();
 
     Menu() {
 
 
-        Person person = new Person("123124124", "Elif", "Aslan", parseDateFromString("12/12/1212"));
+        Person person = new Person("1234", "Elif", "Aslan", parseDateFromString("12/12/1900"));
         person.setId(personList.size()+1);
         personList.add(person);
-        Person person2 = new Person("123124124", "Yusuf", "Aslan", parseDateFromString("12/12/1212"));
+        Person person2 = new Person("12345", "Yusuf", "Aslan", parseDateFromString("12/12/1901"));
         person2.setId(personList.size()+1);
         personList.add(person2);
-        Person person3 = new Person("123124124", "Betül", "Aslan", parseDateFromString("12/12/1212"));
+        Person person3 = new Person("123456", "Betül", "Aslan", parseDateFromString("12/12/1902"));
         person3.setId(personList.size()+1);
         personList.add(person3);
+        Person person4 = new Person("1234567", "Hamza", "Aslan", parseDateFromString("12/12/1903"));
+        person4.setId(personList.size()+1);
+        personList.add(person4);
+        Person person5 = new Person("12345678", "Zeynep", "Aslan", parseDateFromString("12/12/1904"));
+        person5.setId(personList.size()+1);
+        personList.add(person5);
+        Person person6 = new Person("123456789", "Asuman", "Aslan", parseDateFromString("12/12/1905"));
+        person6.setId(personList.size()+1);
+        personList.add(person6);
 
-        System.out.println("Sistemdeki kayitli kisi sayisi: " + personList.size());
+        Account account = new Account("123456789", "Asuman");
+        account.setId(accountList.size()+1);
+        accountList.add(account);
+        Account account2 = new Account("12345", "Yusuf");
+        account.setId(accountList.size()+1);
+        accountList.add(account2);
+        Account account3 = new Account("12345678", "Zeynep");
+        account.setId(accountList.size()+1);
+        accountList.add(account3);
+
+
+        System.out.println("Sistemdeki kayıtlı kişi sayısı: " + personList.size());
+        System.out.println("Sistemdeki kayıtlı hesap sayısı: " + accountList.size());
 
 
         int task = -1;
@@ -88,7 +108,7 @@ class Menu {
                     System.out.println("Lütfen kisinin id sini giriniz!");
                     int personId = scan.nextInt();
                     Person myPerson = getPersonById(personId);
-                    System.out.println(myPerson.getFirstName());
+                    System.out.println(myPerson.getFirstName()+" "+myPerson.getLastName()+" "+myPerson.getNationalId()+" "+myPerson.getbDay());
                     break;
                 default:
                     System.out.println("Geçersiz İşlem!");
@@ -132,8 +152,10 @@ class Menu {
         String name = scan.nextLine();
 
         Account account = new Account(type,name);
-        System.out.println(account.getCreateDate());
+        account.setId(accountList.size()+1);
+        accountList.add(account);
 
+        System.out.println("Kayıtlı hesap sayısı: " + accountList.size());
     }
 
     private void createPerson() {
