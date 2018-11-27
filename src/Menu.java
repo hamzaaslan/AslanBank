@@ -11,10 +11,25 @@ class Menu {
     private Scanner scan = new Scanner(System.in);
     private ArrayList<Person> personList = new ArrayList<>();
 
+
+
     Menu() {
 
-        int task = -1;
 
+        Person person = new Person("123124124", "Elif", "Aslan", parseDateFromString("12/12/1212"));
+        person.setId(personList.size()+1);
+        personList.add(person);
+        Person person2 = new Person("123124124", "Yusuf", "Aslan", parseDateFromString("12/12/1212"));
+        person2.setId(personList.size()+1);
+        personList.add(person2);
+        Person person3 = new Person("123124124", "Betül", "Aslan", parseDateFromString("12/12/1212"));
+        person3.setId(personList.size()+1);
+        personList.add(person3);
+
+        System.out.println("Sistemdeki kayitli kisi sayisi: " + personList.size());
+
+
+        int task = -1;
         while (task != 7) {
             System.out.println("***MENU***");
             System.out.println("0: Kişi Oluştur");
@@ -83,12 +98,13 @@ class Menu {
         }
     }
 
-    Person getPersonById(int id){
+    private Person getPersonById(int id){
         Person myPerson = null;
         System.out.println(id);
         for(Person person:personList) {
             if (person.getId() == id){
                 myPerson = person;
+                break;
             }
         }
         return myPerson;
