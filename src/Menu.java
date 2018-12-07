@@ -1,3 +1,4 @@
+
 import model.Account;
 import model.Person;
 import java.text.ParseException;
@@ -11,7 +12,6 @@ class Menu {
     private Scanner scan = new Scanner(System.in);
     private ArrayList<Person> personList = new ArrayList<>();
     private ArrayList<Account> accountList = new ArrayList<>();
-
     Menu() {
 
         loadTestDB();
@@ -23,71 +23,40 @@ class Menu {
         int task = -1;
         while (task != 7) {
             System.out.println("***MENU***");
-            System.out.println("0: Kişi Oluştur");
-            System.out.println("1: Hesap Aç");
-            System.out.println("2: Hesap Bakiyesi");
-            System.out.println("3: Para Yatır");
-            System.out.println("4: Para Çek");
-            System.out.println("5: Havale");
-            System.out.println("6: Döviz İşlemleri");
-            System.out.println("7: Çıkış");
-            System.out.println("8: Kisi getir");
-            System.out.println("9: Hesap getir");
+            System.out.println("1: Kişi Oluştur");
+            System.out.println("2: Hesap Aç");
+            System.out.println("3: Döviz İşlemleri");
+            System.out.println("4: Hesap getir");
+            System.out.println("5: Kisi getir");
+            System.out.println("6: Çıkış");
             task = scan.nextInt();
 
             double bakiye = 0;
             switch (task) {
-                case 0:
+                case 1:
                     System.out.println("0: Kişi Oluştur");
                     createPerson();
                     break;
 
-                case 1:
+                case 2:
                     System.out.println("***Hesap Tanımlama***");
                     createAccount();
                     break;
 
-                case 2:
-                    System.out.print("Bakiyeniz:" + bakiye + "TL'dir.");
-                    break;
                 case 3:
-                    System.out.println("Ne Kadar Yatıracaksınız?");
-                    int miktar = scan.nextInt();
-
-                    bakiye += miktar;
-                    System.out.println("Bakiyeniz: " + bakiye + "TL'dir.");
-                    break;
-
-                case 4:
-                    System.out.println("Ne Kadar Çekeceksiniz?");
-                    miktar = scan.nextInt();
-
-                    if (bakiye < miktar) {
-                        System.out.println("Bakiyenizden Fazla TL Çekemezsiniz!");
-                        break;
-                    }
-                    bakiye -= miktar;
-                    System.out.println("Bakiyeniz: " + bakiye + "TL'dir.");
-                    break;
-                case 5:
-
-                case 6:
                     exchangeOperation();
                     break;
-                case 7:
-                    System.out.println("Sistemden Çıkılıyor!");
+                case 4:
+                    accountOperation();
                     break;
-                case 8:
+                case 5:
                     System.out.println("Lütfen kisinin id sini giriniz!");
                     int personId = scan.nextInt();
                     Person myPerson = getPersonById(personId);
                     System.out.println(myPerson.getFirstName()+" "+myPerson.getLastName()+" "+myPerson.getNationalId()+" "+myPerson.getbDay());
                     break;
-                case 9:
-                    System.out.println("Hesap Getir");
-                    int accountId = scan.nextInt();
-                    Account myAccount = getAccountById(accountId);
-                    System.out.println(myAccount.getType()+" "+myAccount.getName());
+                case 6:
+                    System.out.println("Sistemden Çıkılıyor!");
                     break;
 
                 default:
@@ -249,4 +218,60 @@ class Menu {
         accountList.add(account3);
 
     }
+    private void accountOperation() {
+        int task = 0;
+        int miktar;
+        System.out.println("Hesap Getir");
+        int accountId = scan.nextInt();
+        Account myAccount = getAccountById(accountId);
+        System.out.println(myAccount.getType()+" "+myAccount.getName()+" "+ myAccount.getBalance());
+        int bakiye = myAccount.getBalance();
+
+        while (task !=4 ) {
+            System.out.println("Bir işlem seçiniz: ");
+            System.out.println("1: Hesap Bakiyesi");
+            System.out.println("2: Para Çek");
+            System.out.println("3: Para Yatır");
+            System.out.println("4: Çıkış");
+
+            task = scan.nextInt();
+
+
+            switch (task) {
+                case 1:
+                    System.out.print("Bakiyeniz:" + bakiye + "TL'dir.");
+                    break;
+                case 2:
+                    System.out.println("Ne Kadar Çekeceksiniz?");
+                    miktar = scan.nextInt();
+
+                    if (bakiye < miktar) {
+                        System.out.println("Bakiyenizden Fazla TL Çekemezsiniz!");
+                        break;
+                    }
+                    bakiye -= miktar;
+                    System.out.println("Bakiyeniz: " + bakiye + "TL'dir.");
+                    break;
+                case 3:
+                    System.out.println("Ne Kadar Yatıracaksınız?");
+                    miktar = scan.nextInt();
+
+                    bakiye += miktar;
+                    System.out.println("Bakiyeniz: " + bakiye + "TL'dir.");
+                    break;
+                case 4:
+                    System.out.println("Sistemden Çıkılıyor!");
+                    break;
+                default:
+                    System.out.println("Geçersiz İşlem!");
+                    break;
+            }
+
+            int index = accountList.indexOf(myAccount);
+            myAccount.setBalance(bakiye);
+            accountList.set(index, myAccount);
+
+        }
+    }
 }
+// CRUD; create, Read, update, delete

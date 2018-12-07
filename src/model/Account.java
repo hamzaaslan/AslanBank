@@ -6,6 +6,15 @@ public class Account {
     private String type;
     private String name;
     private int id;
+    private int balance = 0;
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 
     private Date createDate;
 
