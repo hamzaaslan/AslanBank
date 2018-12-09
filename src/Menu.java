@@ -218,7 +218,7 @@ class Menu {
         System.out.println("Hesap Getir");
         int accountId = scan.nextInt();
         Account myAccount = getAccountById(accountId);
-        System.out.println(myAccount.getType()+" "+myAccount.getName()+" "+ myAccount.getBalance());
+        System.out.println(myAccount.getType()+" "+myAccount.getName()+" "+ myAccount.getBalance()+" TL'dir.");
         int bakiye = myAccount.getBalance();
 
         while (task !=5 ) {
@@ -230,11 +230,9 @@ class Menu {
             System.out.println("5: Çıkış");
 
             task = scan.nextInt();
-
-
             switch (task) {
                 case 1:
-                    System.out.print("Bakiyeniz:" + bakiye + "TL'dir.");
+                    System.out.print("Bakiyeniz:" + bakiye + " TL'dir.");
                     break;
                 case 2:
                     System.out.println("Ne Kadar Çekeceksiniz?");
@@ -245,18 +243,18 @@ class Menu {
                         break;
                     }
                     bakiye -= miktar;
-                    System.out.println("Bakiyeniz: " + bakiye + "TL'dir.");
+                    System.out.println("Bakiyeniz: " + bakiye + " TL'dir.");
                     break;
                 case 3:
                     System.out.println("Ne Kadar Yatıracaksınız?");
                     miktar = scan.nextInt();
 
                     bakiye += miktar;
-                    System.out.println("Bakiyeniz: " + bakiye + "TL'dir.");
+                    System.out.println("Bakiyeniz: " + bakiye + " TL'dir.");
                     break;
                 case 4:
-                    System.out.println("Hangi hesaba havale yapacaksınız?");//
-                    int targetAccountId = scan.nextInt();// kjdbnföksdj nksjdnfl ksjdnfk
+                    System.out.println("Hangi hesaba havale yapacaksınız?");
+                    int targetAccountId = scan.nextInt();
                     Account targetAccount = getAccountById(targetAccountId);
                     System.out.println("Ne kadar havale yapacaksınız?");
                     int havaleMiktar = scan.nextInt();
@@ -264,15 +262,12 @@ class Menu {
                         System.out.println("Bakiyenizden Fazla Havale Yapamazsınız!");
                         break;
                     }
-
                     bakiye -= havaleMiktar;
-
+                    System.out.println("Bakiyeniz: " + bakiye + " TL'dir.");
                     int targetIndex = accountList.indexOf(targetAccount);
                     targetAccount.setBalance(targetAccount.getBalance()+havaleMiktar);
                     accountList.set(targetIndex, targetAccount);
-
                     break;
-
                 case 5:
                     System.out.println("Ana Menüye geri dönülüyor!");
                     break;
@@ -280,11 +275,9 @@ class Menu {
                     System.out.println("Geçersiz İşlem!");
                     break;
             }
-
             int index = accountList.indexOf(myAccount);
             myAccount.setBalance(bakiye);
             accountList.set(index, myAccount);
-
         }
     }
 }
