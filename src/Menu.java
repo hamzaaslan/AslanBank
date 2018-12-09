@@ -16,11 +16,13 @@ class Menu {
 
         System.out.println("Sistemdeki kayıtlı kişi sayısı: " + personList.size());
         System.out.println("Sistemdeki kayıtlı hesap sayısı: " + accountList.size());
+        System.out.println("------------------------------------");
 
 
         int task = -1;
         while (task != 6) {
             System.out.println("***ANA MENU***");
+            System.out.println("------------------------------------");
             System.out.println("1: Kişi Oluştur");
             System.out.println("2: Hesap Aç");
             System.out.println("3: Döviz İşlemleri");
@@ -135,11 +137,11 @@ class Menu {
             if (bDayinDateFormat != null )
                 break;
         }
-
-        System.out.print("TC Kimlik No: " + nationalId);
-        System.out.print("Adı: " + firstName);
-        System.out.print("Soyadı: " + lastName);
-        System.out.print("Doğum Tarihi: " + bDay);
+        System.out.println("------------------------------------");
+        System.out.println("TC Kimlik No: " + nationalId);
+        System.out.println("Adı: " + firstName);
+        System.out.println("Soyadı: " + lastName);
+        System.out.println("Doğum Tarihi: " + bDay);
 
         Person person = new Person(nationalId, firstName, lastName, bDayinDateFormat);
         person.setId(personList.size()+1);
@@ -222,6 +224,7 @@ class Menu {
         int bakiye = myAccount.getBalance();
 
         while (task !=5 ) {
+            System.out.println("------------------------------------");
             System.out.println("Bir işlem seçiniz: ");
             System.out.println("1: Hesap Bakiyesi");
             System.out.println("2: Para Çek");
