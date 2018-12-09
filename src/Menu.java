@@ -1,12 +1,10 @@
-
 import model.Account;
-import model.Person;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
-
+        import model.Person;
+        import java.text.ParseException;
+        import java.text.SimpleDateFormat;
+        import java.util.ArrayList;
+        import java.util.Date;
+        import java.util.Scanner;
 
 class Menu {
     private Scanner scan = new Scanner(System.in);
@@ -21,13 +19,13 @@ class Menu {
 
 
         int task = -1;
-        while (task != 7) {
-            System.out.println("***MENU***");
+        while (task != 6) {
+            System.out.println("***ANA MENU***");
             System.out.println("1: Kişi Oluştur");
             System.out.println("2: Hesap Aç");
             System.out.println("3: Döviz İşlemleri");
             System.out.println("4: Hesap getir");
-            System.out.println("5: Kisi getir");
+            System.out.println("5: Kişi getir");
             System.out.println("6: Çıkış");
             task = scan.nextInt();
 
@@ -66,7 +64,6 @@ class Menu {
             }
         }
     }
-
     private Person getPersonById(int id){
         Person myPerson = null;
         System.out.println(id);
@@ -78,17 +75,17 @@ class Menu {
         }
         return myPerson;
     }
-    private Account getAccountById(int id) {
-            Account myAccount = null;
-            System.out.println(id);
-            for(Account account:accountList){
-                if (account.getId() == id) {
-                    myAccount = account;
-                }
-            }
-            return myAccount;
-    }
 
+      private Account getAccountById(int id) {
+        Account myAccount = null;
+        System.out.println(id);
+        for(Account account:accountList){
+            if (account.getId() == id) {
+                myAccount = account;
+            }
+        }
+        return myAccount;
+    }
     private Date parseDateFromString(String myStringDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date date= null;
@@ -96,11 +93,10 @@ class Menu {
             date = sdf.parse(myStringDate);
         } catch (ParseException e) {
             System.out.print("Lütfen dd/MM/yyyy formatta yeniden giriniz.");
-          //  e.printStackTrace();
+            //  e.printStackTrace();
         }
         return date ;
     }
-
     private void createAccount() {
 
         System.out.print("Hesap Türü Giriniz: ");
@@ -116,7 +112,6 @@ class Menu {
 
         System.out.println("Kayıtlı hesap sayısı: " + accountList.size());
     }
-
     private void createPerson() {
 
         System.out.print("TC Kimlik No Giriniz: ");
@@ -154,7 +149,6 @@ class Menu {
 
         System.out.println("Kayıtlı kişi sayısı: " + personList.size());
     }
-
     private  void exchangeOperation(){
         Scanner oku = new Scanner(System.in);
         double dolars, dolara, sonuc, para;
@@ -186,7 +180,6 @@ class Menu {
             System.out.print(" Yanlış işlem seçtiniz!");
 
     }
-
     private void loadTestDB(){
         Person person = new Person("1234", "Elif", "Aslan", parseDateFromString("12/12/1900"));
         person.setId(personList.size()+1);
@@ -218,21 +211,23 @@ class Menu {
         accountList.add(account3);
 
     }
+
     private void accountOperation() {
         int task = 0;
-        int miktar;
+        int miktar = 0;
         System.out.println("Hesap Getir");
         int accountId = scan.nextInt();
         Account myAccount = getAccountById(accountId);
         System.out.println(myAccount.getType()+" "+myAccount.getName()+" "+ myAccount.getBalance());
         int bakiye = myAccount.getBalance();
 
-        while (task !=4 ) {
+        while (task !=5 ) {
             System.out.println("Bir işlem seçiniz: ");
             System.out.println("1: Hesap Bakiyesi");
             System.out.println("2: Para Çek");
             System.out.println("3: Para Yatır");
-            System.out.println("4: Çıkış");
+            System.out.println("4: Havale");
+            System.out.println("5: Çıkış");
 
             task = scan.nextInt();
 
@@ -260,7 +255,26 @@ class Menu {
                     System.out.println("Bakiyeniz: " + bakiye + "TL'dir.");
                     break;
                 case 4:
-                    System.out.println("Sistemden Çıkılıyor!");
+                    System.out.println("Hangi hesaba havale yapacaksınız?");//
+                    int targetAccountId = scan.nextInt();// kjdbnföksdj nksjdnfl ksjdnfk
+                    Account targetAccount = getAccountById(targetAccountId);
+                    System.out.println("Ne kadar havale yapacaksınız?");
+                    int havaleMiktar = scan.nextInt();
+                    if(bakiye < havaleMiktar) {
+                        System.out.println("Bakiyenizden Fazla Havale Yapamazsınız!");
+                        break;
+                    }
+
+                    bakiye -= havaleMiktar;
+
+                    int targetIndex = accountList.indexOf(targetAccount);
+                    targetAccount.setBalance(targetAccount.getBalance()+havaleMiktar);
+                    accountList.set(targetIndex, targetAccount);
+
+                    break;
+
+                case 5:
+                    System.out.println("Ana Menüye geri dönülüyor!");
                     break;
                 default:
                     System.out.println("Geçersiz İşlem!");
@@ -274,4 +288,3 @@ class Menu {
         }
     }
 }
-// CRUD; create, Read, update, delete
