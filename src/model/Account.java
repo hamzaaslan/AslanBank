@@ -1,30 +1,24 @@
 package model;
-
 import java.util.Date;
-
 public class Account {
     private String type;
     private String name;
     private int id;
     private int balance = 0;
 
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
-
     private Date createDate;
-
     public Account(String type, String name) {
         this.type = type;
         this.name = name;
         setCreateDate(new Date());
     }
 
-
+    public int getBalance() {
+        return balance;
+    }
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
     public String getType() {
         return type;
     }
